@@ -159,7 +159,7 @@ def get311():
     '''
     year = request.form.get('year')
     month = request.form.get('month')
-    print(month)
+    #print(month)
     if year :
         date = year
         if month:
@@ -187,7 +187,7 @@ def get311():
 def get312():
 
     category = request.form.get('category')
-    print(category)
+    #print(category)
     query = "select w.name as writer_name,c.name as category from writer w join bwriter on w.id = bwriter.writer_id join book as b on bwriter.book_id = b.id  join bookcat on bookcat.book_id = b.id  join category as c on c.id = bookcat.cat_id  where c.id = '{}' ;".format(category)
     cur = db.connection.cursor()
     cur.execute(query)
@@ -369,7 +369,7 @@ def get323(username ):
  column_names = [i[0] for i in cur.description]
  res2 = [dict(zip(column_names, entry)) for entry in cur.fetchall()]
  cur.close()
- print(username,user,category,school,'\n',res1,'\n',res2)
+ #print(username,user,category,school,'\n',res1,'\n',res2)
  return render_template("librarianq3.html",pageTitle = "Average ratings",data1 = res1,data2 = res2)
 
 @users.route("/users")
@@ -431,7 +431,7 @@ def services(username,role):
  book2 = [dict(zip(column_names, entry)) for entry in cur.fetchall()]
  dummy1 = formborrowbook.__dict__
  title = dummy1['title'].data
- print(title)
+ #print(title)
  if title:
     query = "Select u.id from users as u where u.username ='{}'".format(username)
     cur.execute(query)
@@ -508,13 +508,17 @@ def services(username,role):
     if data3: 
         review = data3[0]
     
-    print (title4)
+    #print (title4)
+ #change password
  formpass = passform()
  dummy5 = formpass.__dict__
- newpass = dummy5['pass1']
+ newpass = dummy5['pass1'].data
+ 
  if newpass:
     query ="UPDATE users SET password = '{}' where username ='{}' ; ".format(newpass,username)
- 
+    cur.execute(query)
+    db.connection.commit()
+
  #get user's reservations
  query = "select b.title ,r.trdate  from users as u join reservation as r on r.user_id = u.id join book as b on b.id = r.book_id where u.username ='{}' and r.status ='0' ".format(username) 
  cur.execute(query)
@@ -528,12 +532,16 @@ def services(username,role):
  restitle = dummy6['title'].data
  resdate = dummy6['date'].data
  if restitle and resdate:
-    query = "SELECT book_id from book where title ='{}' ; ".format(restitle)
+    query = "SELECT id from book where title ='{}' ; ".format(restitle)
+   
     cur.execute(query)
     db.connection.commit()
     data4 =cur.fetchone() 
     resid = data4[0]
-    query = "DELETE from reservation where book_id ='{}' and trdate='{}' ;}".format(resid,resdate)
+    #print(resid)
+    query = "DELETE from reservation where book_id ='{}'  and trdate='{}' ;".format(resid,resdate)
+    cur.execute(query)
+    db.connection.commit()
  cur.close()     
  return render_template("user.html",pageTitle = "User Profile and Services",user = user,form=form,form2 = form2,book=book,book2=book2,data3=review,formborrowbook = formborrowbook ,formreservebook = formreservebook ,formrev = formreview ,formreviewsee = formreviewsee,formpass = formpass,res=res,formresdelete = formresdelete)  
     
@@ -560,19 +568,6 @@ def get332(username ):
 
 
 
-'''@users.route("/libact/<id>",methods=['GET','POST'])
-def activate(id):
- 
- #id = request.form.get('id')
- query ="UPDATE users SET role_id = '0' where id = '{}' ".format(id)
- cur = db.connection.cursor()
- cur.execute(query)
- db.connection.commit()
- 
- cur.close()
- flash("User activated ", "success")
- return render_template("librarian.html")
-'''
 
 @users.route("/librarian/services/<username>/<role>",methods=['GET', 'POST'])
 def libservices(username,role):
@@ -582,25 +577,17 @@ def libservices(username,role):
                      db.connection.commit()
                      data1 =cur.fetchone()   
                      school = data1[0]
-                     query = "SELECT u.id,u.username from users as u join schooluser as su on su.user_id = u.id where su.school_id ='{}' and u.role_id = '-1'".format(school)
+                     query = "SELECT u.id,u.username,u.role_id from users as u join schooluser as su on su.user_id = u.id where su.school_id ='{}' and (u.role_id = '-1' or u.role_id = '-3' )".format(school)
                      cur.execute(query)
                      db.connection.commit()
                      column_names = [i[0] for i in cur.description]
                      data = [dict(zip(column_names, entry)) for entry in cur.fetchall()] 
-                     '''formuserbook = formubid()
-                     dummy = formuserbook.__dict__
-                     uid = dummy['uid'].data
-                     bid = dummy['bid'].data
-                     #confirm a rental 
-                     if uid and bid :
-                        query = "UPDATE rental SET status = '1' where book_id = '{}' and user_id ='{}' ".format(bid,uid)
-                        cur.execute(query)
-                        db.connection.commit()'''
+                     
                      formuseractivate = formid()
                      dummy1 = formuseractivate.__dict__
                      uid1 = dummy1['id'].data
                      #activate a normal user
-                     print(uid1)
+                     #print(uid1)
                      if uid1: 
                         query = "UPDATE users SET role_id = '0' where id = '{}' ;".format(uid1)
                         cur.execute(query)
@@ -608,10 +595,10 @@ def libservices(username,role):
                      formuserdeactivate = formid2()
                      dummy2= formuserdeactivate.__dict__
                      uid2 = dummy2['id2'].data
-                     print(uid2)
+                     #print(uid2)
                      #deactivate a user
                      if (uid2):
-                        query = "UPDATE users SET role_id = '-1' where id = '{}' ".format(uid2)
+                        query = "UPDATE users SET role_id = '-3' where id = '{}' ".format(uid2)
                         cur.execute(query)
                         flash("Dectivated", "success")
                      formuserdelete = formid3()
@@ -639,7 +626,7 @@ def libservices(username,role):
                      uid4 = dummy4['uid'].data
                      bid4 = dummy4['bid'].data
                      if uid4 and bid4 :
-                        query = "INSERT INTO rental (user_id,book_id,trdate,status,libr_id) VALUES ('{}', '{}','default',1,default); ".format(uid4,bid4)
+                        query = "INSERT INTO rental (user_id,book_id,trdate,status,libr_id) VALUES ('{}', '{}',default,1,default); ".format(uid4,bid4)
                         query += "  UPDATE reservation SET status = '1' where book_id ='{}' and user_id = '{}' ".format(bid4,uid4)
                         cur.execute(query)
                         db.connection.commit()
