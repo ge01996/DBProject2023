@@ -1,0 +1,85 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<head>
+<style>
+h1 {text-align: center;}
+p {text-align: center;}
+div {text-align: center;}
+</style>
+</head>
+<body>
+
+
+<center>
+  <img src="https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2022/04/fb49c-library-in-ahmedabad.jpg?fit=5472%2C3648&ssl=1" alt="show image" height="420" width="420">
+
+
+<h1>Welcome to the School Library Manager</h1>
+<p>
+    <br><br>
+           <h4 class="card-title">Click here to register</h4>
+                                 
+          <a class="btn btn-primary" id="show-home-btn" href="/users/create">Register</a>
+                     </div>
+<div class="container">
+    <p>
+        <br><br>
+               <h4 class="card-title">Click here to register as a librarian</h4>
+                                     
+              <a class="btn btn-primary" id="show-home-btn" href="/users/createlib">Register</a>
+                         </div>
+    <div class="container">
+
+</body>
+<div class="container" id="row-container">
+      {% include "flash_messages.html" %}
+    <div class="row justify-content-center" id="row">
+        <div class="col-md-4">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Manual</h4>
+                    <p class="card-text" id="paragraph">Manual of the Database <br></p>
+                    <a class="btn btn-primary" id="show-home-btn" href="/manual">Show</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><center>
+<div class="container" id="row-container">
+        <div class="row" id="row-2">
+            <div class="col-md-6">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">SCHOOL NAMES</h4>
+                        
+                        {% if school|length == 0 %}
+                        <h1 style="margin-top: 5rem;">No school found!</h1>
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Name</th>
+                                        
+                                </thead>
+                                <tbody>
+                                    {% for school in school %}
+                                        <tr>
+                                            <td> {{ school.name }} </td>
+                        
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </center>
+{% endblock content %}

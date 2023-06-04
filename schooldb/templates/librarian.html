@@ -1,0 +1,482 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Librarian Services homepage </h1>
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container">
+        <div class="card" id="card-container">
+    <h6>Username : </h6>{{un}} <br><br>
+    <h6>Role : </h6>{{role}}
+</div></div>
+<h2>Click here to use the library as administrator</h2>
+
+<button type="button" onclick="alert('You got a virus!')">Click Me!</button>
+<div class="row" id="row">
+    <div class="col-md-12">
+        
+                     <div class="container">
+                        <div class="card" id="card-container">
+    <h4 class="card-title">Click here to use the library as a normal user</h4>
+                          
+   <a class="btn btn-primary" id="show-home-btn" href="/users/services/{{un}}/{{role}}">Click</a>
+              </div>
+<br> {% include "flash_messages.html" %}<br>
+<div class="row" id="row">
+    <div class="col-md-12">
+        
+                     <div class="container">
+                        <div class="card" id="card-container">
+                            <h3 class="card-title">Rentals awaiting confirmation</h3>
+                                                  
+                        
+                                    
+                        {% if data2|length == 0 %}
+                        <h1 style="margin-top: 5rem;">No rentals found!</h1>
+                    {% else %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+        
+                                        <th>User ID</Title></th>
+                                        <th>Book ID</Title></th>
+                                        <th>Rental Date</Title></th>
+                                        <th>Current Rentals/Reservations</Title></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for data2 in data2 %}
+                                        <tr>
+                                        
+                                            <td> {{ data2.uid }} </td>
+                                            <td> {{ data2.bid }} </td>
+                                            <td> {{ data2.rd }} </td>
+                                            <td> {{ data2.cr }} </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                               
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    </div></div></div></div>
+                
+        <br><br>
+
+        
+                    </form>
+                    <br><br>
+        <div class="container">
+            <div class="card" id="card-container">
+                    <br><br>
+                    
+                     <h3 class="card-title">Enter here the book & user ID of the rental you want to confirm</h3>
+                     <p><font size="+2"></font></p>                 
+                     <form class="form-horizontal" name="formrentalconfirm" method="POST">
+                        <!-- hidden_tag returns the form's security metadata -->
+                        {{ formrentalconfirm.hidden_tag() }}
+                        <div class="form-group col-sm-3 mb-3">
+                            {{ formrentalconfirm.uid3.label(class = "form-label") }}
+                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                            {{ formrentalconfirm.uid3(class = "form-control", placeholder = "Enter user ID  ", required = False) }}
+                            {% if formrentalconfirm.uid3.errors %}
+                            <ul class = "errors">
+                                {% for error in formrentalconfirm.uid3.errors %}
+                                <li class = "text-danger">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        
+                                <div class="form-group col-sm-12 mb-12 ">
+                                    {{ formrentalconfirm.bid3.label(class = "form-label" ) }}
+                                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                    {{ formrentalconfirm.bid3(class = "form-control", placeholder = "Enter book ID ", required = False) }}
+                                    {% if formrentalconfirm.bid3.errors %}
+                                    <ul class = "errors">
+                                        {% for error in formrentalconfirm.bid3.errors %}
+                                        <li class = "text-danger">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div> 
+                                    
+                        {{ formrentalconfirm.submit(class = "btn btn-primary", value = "Confirm") }}
+                    </form>
+                </div>
+            </div>
+    <br><br>
+
+                <br><br>
+                <div class="row" id="row">
+                    <div class="col-md-12">
+                        
+                                     <div class="container">
+                                        <div class="card" id="card-container">
+                                            <h3 class="card-title">Reservations awaiting confirmation</h3>
+                                                                  
+                                        
+                                                    
+                                        {% if data3|length == 0 %}
+                                        <h1 style="margin-top: 5rem;">No reservations found!</h1>
+                                    {% else %}
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                        
+                                                        <th>User ID</Title></th>
+                                                        <th>Book ID</Title></th>
+                                                        <th>Reservation Date</Title></th>
+                                                        <th>Current Rentals/Reservations</Title></th>
+
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for data3 in data3 %}
+                                                        <tr>
+                                                        
+                                                            <td> {{ data3.uid }} </td>
+                                                            <td> {{ data3.bid }} </td>
+                                                            <td> {{ data3.rd }} </td>
+                                                            <td> {{ data3.cr}} </td>
+                                                            <td>
+                                                                
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    {% endif %}
+                                    </div></div></div></div>
+                                
+                        <br><br>
+                
+                        
+                                    </form>
+                                    <br><br>
+                        <div class="container">
+                            <div class="card" id="card-container">
+                                    <br><br>
+                                    
+                                     <h3 class="card-title">Enter here the book & user ID of the reservation you want to confirm</h3>
+                                     <p><font size="+2"></font></p>                 
+                                     <form class="form-horizontal" name="formreservationconfirm" method="POST">
+                                        <!-- hidden_tag returns the form's security metadata -->
+                                        {{ formreservationconfirm.hidden_tag() }}
+                                        <div class="form-group col-sm-3 mb-3">
+                                            {{ formreservationconfirm.uid.label(class = "form-label") }}
+                                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                            {{ formreservationconfirm.uid(class = "form-control", placeholder = "Enter user ID ", required = False) }}
+                                            {% if formreservationconfirm.uid.errors %}
+                                            <ul class = "errors">
+                                                {% for error in formreservationconfirm.uid.errors %}
+                                                <li class = "text-danger">{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                            {% endif %}
+                                        
+                                                <div class="form-group col-sm-12 mb-12 ">
+                                                    {{ formreservationconfirm.bid.label(class = "form-label" ) }}
+                                                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                                    {{ formreservationconfirm.bid(class = "form-control", placeholder = "Enter book ID ", required = False) }}
+                                                    {% if formreservationconfirm.bid.errors %}
+                                                    <ul class = "errors">
+                                                        {% for error in formreservationconfirm.bid.errors %}
+                                                        <li class = "text-danger">{{ error }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    {% endif %}
+                                                </div> 
+                                                    
+                                        {{ formreservationconfirm.submit(class = "btn btn-primary", value = "Confirm") }}
+                                    </form>
+                                </div>
+                            </div>
+                    <br><br>
+                             <br><br>
+                                </div>
+                                <br><br>
+                                <div class="row" id="row">
+                                    <div class="col-md-12">
+                                        
+                                                     <div class="container">
+                                                        <div class="card" id="card-container">
+                                                            <h3 class="card-title">Enter book & user ID to confirm the return of the book</h3>
+                                                            <form class="form-horizontal" name="formreturn" method="POST">
+                                                                <!-- hidden_tag returns the form's security metadata -->
+                                                                {{ formreturn.hidden_tag() }}
+                                                                <div class="form-group col-sm-3 mb-3">
+                                                                    {{ formreturn.uid2.label(class = "form-label") }}
+                                                                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                                                    {{ formreturn.uid2(class = "form-control", placeholder = "Enter user ID ", required = False) }}
+                                                                    {% if formreturn.uid2.errors %}
+                                                                    <ul class = "errors">
+                                                                        {% for error in formreturn.uid2.errors %}
+                                                                        <li class = "text-danger">{{ error }}</li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                    {% endif %}
+                                                                
+                                                                        <div class="form-group col-sm-12 mb-12 ">
+                                                                            {{ formreturn.bid2.label(class = "form-label" ) }}
+                                                                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                                                            {{ formreturn.bid2(class = "form-control", placeholder = "Enter book ID ", required = False) }}
+                                                                            {% if formreturn.bid2.errors %}
+                                                                            <ul class = "errors">
+                                                                                {% for error in formreturn.bid2.errors %}
+                                                                                <li class = "text-danger">{{ error }}</li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            {% endif %}
+                                                                        </div> 
+                                                                            
+                                                                {{ formreturn.submit(class = "btn btn-primary", value = "Confirm") }}
+                                                            </form>
+                                                        </div>
+                                                        <br><br>
+                                                           </div>
+                                                           <br><br>                         
+                                                           <div class="row" id="row">
+                                                            <div class="col-md-12">
+                                                                
+                                                                             <div class="container">
+                                                                                <div class="card" id="card-container">
+                                                            <h4 class="card-title">Click here to add a book,writers and keywords to the database</h4>
+                                                                                  
+                                                           <a class="btn btn-primary" id="show-home-btn" href="/book/create" target="_blank">Click</a>
+
+                                                           
+                                                                      </div>
+                                                        <br><br>
+
+
+
+                     <div class="container">
+   
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="container">
+                        <h4 class="card-title">3.2.1</h4>
+                        <p><font size="+2">Click to see all the books :</font></p>                 
+               <br><br>
+                        <p>Choose the criteria by which the books will be sorted:</p>
+                    
+
+<form action="/q321/{{un}}" method="POST" target="_blank" >
+   
+  <input type="radio" id="fwriter" name="fwriter" value="fwriter">
+  <label for="fwriter">Order by Writer</label><br>
+  <input type="radio" id="ftitle" name="ftitle" value="ftitle">
+  <label for="ftitle">Order by Book Title</label><br><br><br>
+   <p>Enter your search filters:</p><br>                    
+
+          <label for="title">Book Title:</label><br>
+          <input type="text" id="title" name="title" ><br>
+          <p>eg.To find all books starting with the letter A type: A%</p>
+          <label for="category">Category:</label><br>
+          <input type="text" id="category" name="category" ><br>
+          <label for="writer">Writer Name:</label><br>
+          <input type="text" id="writer" name="writer" ><br>
+            <label for="copies">Copies:</label><br>
+           <input type="text" id="copies" name="copies" ><br><br>
+                      
+         <input type="submit" value="Submit">
+        </form>
+                              
+                        
+                      
+
+                         
+               <br><br>
+               <h4 class="card-title">3.2.2</h4>
+               <p class="card-text" id="paragraph"><font size="+2">Click to see which users have a book passed its return date</font><br></p>
+               <form action="/q322/{{un}}" method="POST" target="_blank">
+                                <label for="first_name">First Name:</label><br>
+                                <input type="text" id="first_name" name="first_name" ><br>
+                                <label for="last_name">Last Name:</label><br>
+                                <input type="text" id="last_name" name="last_name" ><br>
+                                <label for="days">Days past its return date:</label><br>
+                                <input type="text" id="days" name="days" ><br><br>
+                                <input type="submit" value="Submit">
+                              </form>
+            
+                              <br><br>
+               <h4 class="card-title">3.2.3</h4>
+               <p class="card-text" id="paragraph"><font size="+2">Click to see average rating per borrower or per category</font><br></p>
+               <form action="/q323/{{un}}" method="POST" target="_blank" >
+                                <label for="username">Username:</label><br>
+                                <input type="text" id="username" name="username" ><br>
+                                <label for="category">Category:</label><br>
+                                <input type="text" id="category" name="category" ><br>
+        
+                                <input type="submit" value="Submit">
+                              </form>
+                              <br><br><br><br><br><br><br><br>
+                            </div>
+                        </div>
+
+<div class="row" id="row">
+                                <div class="col-md-12">
+                                    <div class="card" id="card-container">
+                                        <div class="card-body" id="card1">
+                                    <h2 class="card-title">Deactivation</h2>
+                                    <center>
+                                    <form class="form-horizontal" name="formuserdeactivate" method="POST">
+                                        <!-- hidden_tag returns the form's security metadata -->
+                                        {{ formuserdeactivate.hidden_tag() }}
+                                        <div class="form-group col-sm-3 mb-3">
+                                            {{ formuserdeactivate.id2.label(class = "form-label") }}
+                                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                            {{ formuserdeactivate.id2(class = "form-control", placeholder = "Enter id ", required = False) }}
+                                            {% if formuserdeactivate.id2.errors %}
+                                            <ul class = "errors">
+                                                {% for error in formuserdeactivate.id2.errors %}
+                                                <li class = "text-danger">{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                            {% endif %}
+                                        
+                                        {{ formuserdeactivate.submit(class = "btn btn-primary", value = "Deactivate") }}
+                                    </form></center>
+                                   <br><br>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <br><br>
+
+                              <div class="row" id="row">
+                                <div class="col-md-12">
+                                    <div class="card" id="card-container">
+                                        <div class="card-body" id="card">
+                                            <h4 class="card-title"></h4>
+                                            <p class="card-text" id="paragraph"><font size="+2">Inactive accounts</font><br></p>
+                                
+              
+                                        {% if data|length == 0 %}
+                                            <h1 style="margin-top: 5rem;">No users found!</h1>
+                                        {% else %}
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                            
+                                                            <th>User ID </Title></th>
+                                                            <th>Username </Title></th>
+                                                
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for data in data %}
+                                                            <tr>
+                                                            
+                                                                <td> {{ data.id }} </td>
+                                                                <td> {{ data.username }} </td>
+                                                                <td>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                   
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div></div></div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        {% endif %}
+                                        </div></div> <div class="row" id="row">
+                                            <div class="col-md-12">
+                                                <div class="card" id="card-container">
+                                                    <div class="card-body" id="card">
+                                        <h2 class="card-title">Activation</h2>
+                                        <p><font size="+2">Enter here the ID of the user you want to activate:</font></p>                 
+                                        <center> <form class="form-horizontal" name="formuseractivate" method="POST">
+                                            <!-- hidden_tag returns the form's security metadata -->
+                                            {{ formuseractivate.hidden_tag() }}
+                                            <div class="form-group col-sm-3 mb-3">
+                                                {{ formuseractivate.id.label(class = "form-label") }}
+                                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                                {{ formuseractivate.id(class = "form-control", placeholder = "Enter id ", required = False) }}
+                                                {% if formuseractivate.id.errors %}
+                                                <ul class = "errors">
+                                                    {% for error in formuseractivate.id.errors %}
+                                                    <li class = "text-danger">{{ error }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
+                                            
+                                            {{ formuseractivate.submit(class = "btn btn-primary", value = "Activate") }}
+                                        </form></center>
+                                       <br><br>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row" id="row">
+                            <div class="col-md-12">
+                                <div class="card" id="card-container">
+                                    <div class="card-body" id="card">
+                                        <h4 class="card-title">DELETE!</h4>
+                                        <p class="card-text" id="paragraph"><font size="+2">Enter here the ID of the user you want to Delete:</font><br></p>
+                                        <center>  
+                                <form class="form-horizontal" name="formuserdelete" method="POST">
+                                    <!-- hidden_tag returns the form's security metadata -->
+                                    {{ formuserdelete.hidden_tag() }}
+                                    <div class="form-group col-sm-3 mb-3">
+                                        {{ formuserdelete.id3.label(class = "form-label") }}
+                                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                        {{ formuserdelete.id3(class = "form-control", placeholder = "Enter id ", required = False) }}
+                                        {% if formuserdelete.id3.errors %}
+                                        <ul class = "errors">
+                                            {% for error in formuserdelete.id3.errors %}
+                                            <li class = "text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    
+                                    {{ formuserdelete.submit(class = "btn btn-primary", value = "Delete") }}
+                                </form>
+                        
+                            </center>   
+                        
+                        
+         
+
+
+
+
+                              {% endblock content %}
+
+
+
+
+                              
+
+  
+
+
+ 

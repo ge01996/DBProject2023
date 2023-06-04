@@ -1,0 +1,142 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Admin Services homepage </h1>
+
+<!DOCTYPE html>
+<html>
+<body><br><br>
+  {% include "flash_messages.html" %}<br><br>
+<h2>This is a useless button</h2>
+
+<button type="button" onclick="alert('Nothing happened')">Click Me!</button>
+<br><br>
+                                    <h4 class="card-title">Backup the database</h4>
+                                 
+                                    <a class="btn btn-primary" id="show-home-btn" href="/users/admin/backup" target="_blank">Backup</a>
+
+                                    <br><br>
+                                    <h4 class="card-title">Restore the database from backup file</h4>
+                                   
+                                    <a class="btn btn-primary" id="show-home-btn" href="/users/admin/restore" target="_blank">Restore</a>
+
+                                </body>
+</html>
+<!DOCTYPE html>
+<html>
+<body>
+  <br><br><br><br>
+  <div class="container">
+    
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+  <h2 class="card-title">3.1.7</h2>
+  <p class="card-text" id="paragraph"><font size="+2">Click to see librarian accounts awaiting activation</font><br></p>
+  <a class="btn btn-primary" id="show-home-btn" href="/users/admin/librarianactivation" target="_blank">Show</a>
+</div>
+<br><br>
+<br><br>                         
+<div class="row" id="row">
+ <div class="col-md-12">
+     
+                  <div class="container">
+                     <div class="card" id="card-container">
+ <h4 class="card-title">Click here to add a school to the database</h4>
+                       
+<a class="btn btn-primary" id="show-home-btn" href="/school/create" target="_blank">Click</a>
+
+  <div class="container">
+    
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="container">  
+                        <h2 class="card-title">3.1.1</h2>
+                         <p><font size="+2">Choose year and/or month to see the total number of rentals per school:</font></p>                 
+                        <form action="/q311" method="POST" target="_blank">
+                         <label>Choose (year, month ):</label><br>
+                         <label for="year">Year:</label><br>
+                          <input type="text" id="year" name="year"><br>
+                             <label for="month">Month:</label><br>
+                             <select style="padding: 10px; background:#bc8f8f; border:none;" id = "month" name ="month" value="Submit">
+                             <option value="">Any</option>
+                             <option value="01">1</option>
+                             <option value="02">2</option>
+                             <option value="03">3</option>
+                             <option value="04">4</option>
+                             <option value="05">5</option>
+                             <option value="06">6</option>
+                             <option value="07">7</option>
+                             <option value="08">8</option>
+                             <option value="09">9</option>
+                             <option value="10">10</option>
+                             <option value="11">11</option>
+                             <option value="12">12</option>
+                             </select>
+                <br><br>
+                <input type="submit" >
+              </form>
+              
+              <br><br>
+                                    <h2 class="card-title">3.1.2</h2>
+                        <p><font size="+2">Choose a category to see which writers have a book that belongs there <br>
+                            and to see which teachers have borrowed books of this category :</font></p>       
+                      <form action="/q312" method="POST" target="_blank" >
+                        <label>Choose category:</label><br>
+                        <label for="category">Category:</label><br>
+                        <select style="padding: 10px; background:#bc8f8f; border:none;" id = "category" name ="category" value="Submit">
+                                              
+                          <option value="1">History</option>
+                          <option value="2">Novel</option>
+                          <option value="3">Poetry</option>
+                          <option value="4">Sci-Fi</option>
+            
+                          <option value="5">Fantasy</option>
+                          <option value="6">Foreign</option>
+                          <option value="7">Lecture Specific</option>
+                          <option value="8">For young kids</option>
+                          <option value="9">Romance</option>
+                          <option value="10">Mystery</option>
+    
+                        </select>
+                        <br><br>
+                        <input type="submit" >
+                      </form>
+                     
+                      <br><br>
+                      
+                                    <h2 class="card-title">3.1.3</h2>
+                                    <p class="card-text" id="paragraph"><font size="+2">Click to see which young(under 40 y.o.) teachers have borrowed the most books</font><br></p>
+                                    <a class="btn btn-primary" id="show-home-btn" href="/q313" target="_blank">Show</a>
+                                    <br><br><br><br>
+                                    <h2 class="card-title">3.1.4</h2>
+                                    <p class="card-text" id="paragraph"><font size="+2">Click to see which writers didn't have a rental on any of their books</font><br></p>
+                                    <a class="btn btn-primary" id="show-home-btn" href="/q314" target="_blank">Show</a>
+                                    <br><br><br><br>
+                                    <h2 class="card-title">3.1.5</h2>
+                                    <p class="card-text" id="paragraph"><font size="+2">Click to see which librarians loaned the greatest number of books within a year(over 20 rentals)</font><br></p>
+                                    <a class="btn btn-primary" id="show-home-btn" href="/q315" target="_blank">Show</a>
+                                    <br><br><br><br>
+                                    <h2 class="card-title">3.1.6</h2>
+                                    <p class="card-text" id="paragraph"><font size="+2">Click to see which are the top 3 category pairs,ranking by their rentals</font><br></p>
+                                    <a class="btn btn-primary" id="show-home-btn" href="/q316" target="_blank">Show</a>
+                                    <br><br><br><br>
+                                    <h2 class="card-title">3.1.7</h2>
+                                    <p class="card-text" id="paragraph"><font size="+2">Click to see which writers have written at least 5 less books than the writer with th most books</font><br></p>
+                                    <a class="btn btn-primary" id="show-home-btn" href="/q317" target="_blank">Show</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br>
+                
+
+
+
+                    </center>
+  {% endblock content %}
+
+  

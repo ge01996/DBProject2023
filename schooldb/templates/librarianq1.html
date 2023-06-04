@@ -1,0 +1,41 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Librarian Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if data|length == 0 %}
+                <h1 style="margin-top: 5rem;">No books found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                              
+                    
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in data %}
+                                <tr>
+                                    <td> {{ data.title }} </td>
+                                    
+                                    
+                                    
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+
+                    </center>
+                    {% endblock content %}

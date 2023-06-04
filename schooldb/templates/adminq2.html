@@ -1,0 +1,75 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Admin Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if writer|length == 0 %}
+                <h1 style="margin-top: 5rem;">No writers found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Writer Name</th>
+                                <th>Category</th>
+                             
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for writer in writer %}
+                                <tr>
+                                    <td> {{ writer.writer_name }} </td>
+                                    <td> {{ writer.category }} </td>
+                                    
+                                    
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+
+
+                        <div class="container">
+                            {% include "flash_messages.html" %}
+                            <div class="row" id="row">
+                                <div class="col-md-12">
+                                    <div class="card" id="card-container">
+                                        {% if user|length == 0 %}
+                                        <h1 style="margin-top: 5rem;">No teachers found!</h1>
+                                    {% else %}
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User ID</th>
+                                                        <th>First name</th>
+                                                        <th>Last name</th>
+                                                        <th>Role id</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in user %}
+                                                        <tr>
+                                                            <td> {{ user.user_id }} </td>
+                                                            <td> {{ user.first_name }} </td>
+                                                            <td> {{ user.last_name }} </td>
+                                                            <td> {{ user.role_id }} </td>
+                                                            <td>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+              </center>
+              {% endblock content %}

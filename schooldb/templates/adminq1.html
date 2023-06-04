@@ -1,0 +1,41 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Admin Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if school|length == 0 %}
+                <h1 style="margin-top: 5rem;">No rentals found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>School ID</th>
+                                <th>School name</th>
+                                <th>Rentals</th>
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for school in school %}
+                                <tr>
+                                    <td> {{ school.school_id }} </td>
+                                    <td> {{ school.school_name }} </td>
+                                    <td> {{ school.rental_count }} </td>
+                                    
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+              </center>
+              {% endblock content %}

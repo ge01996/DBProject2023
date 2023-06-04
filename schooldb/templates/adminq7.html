@@ -1,0 +1,42 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Admin Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if writer|length == 0 %}
+                <h1 style="margin-top: 5rem;">No writers found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Writer Name</th>
+                                <th>Books written</th>
+                             
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for writer in writer %}
+                                <tr>
+                                    <td> {{ writer.writer }} </td>
+                                    <td> {{ writer.books_written }} </td>
+                                    
+                                    
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+
+                    </center>
+                    {% endblock content %}

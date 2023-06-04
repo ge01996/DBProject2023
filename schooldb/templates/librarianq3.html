@@ -1,0 +1,76 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Librarian Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if data1|length == 0 %}
+                <h1 style="margin-top: 5rem;">Something went wrong!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User id</th>
+                                <th>Username</th>
+                                <th>Average rating</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data1 in data1 %}
+                                <tr>
+                                    <td> {{ data1.id }} </td>
+                                    <td> {{ data1.username }} </td>
+                                    <td> {{ data1.average_rating }} </td>
+    
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+                        <div class="container">
+                            {% include "flash_messages.html" %}
+                            <div class="row" id="row">
+                                <div class="col-md-12">
+                                    <div class="card" id="card-container">
+                                        {% if data2|length == 0 %}
+                                        <h1 style="margin-top: 5rem;">Something went wrong!</h1>
+                                    {% else %}
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Category</th>
+                                                        <th>Average rating</th>
+                                            
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for data2 in data2 %}
+                                                        <tr>
+                                                            <td> {{ data2.name }} </td>
+                                                            <td> {{ data2.average_rating }} </td>
+                                                            
+                                                            
+                                                            <td>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                        
+                    </center>
+                    {% endblock content %}

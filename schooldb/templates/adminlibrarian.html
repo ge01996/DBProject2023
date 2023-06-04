@@ -1,0 +1,79 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+
+
+
+<div class="container" id="row-container">
+    <div class="row" id="row-2">
+        <div class="col-md-12">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Librarian requests</h4>
+                    
+                    {% if res|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No accounts found!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                            </thead>
+                            <tbody>
+                                {% for res in res %}
+                                    <tr>
+                                        <td> {{ res.id }} </td>
+                                        <td> {{ res.username }} </td>
+                                        <td> {{ res.first_name }} </td>
+                                        <td> {{ res.last_name }} </td>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="row-container">
+<center><div class="row" id="row-2">
+        <div class="col-md-12">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Enter User ID to activate the account as a librarian</h4>
+                    <center>
+                        <form class="form-horizontal" name="form" method="POST">
+                            <!-- hidden_tag returns the form's security metadata -->
+                            {{ form.hidden_tag() }}
+                            <div class="form-group col-sm-4 mb-4">
+                                {{ form.id.label(class = "form-label") }}
+                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                {{ form.id(class = "form-control", placeholder = "Enter id ", required = False) }}
+                                {% if form.id.errors %}
+                                <ul class = "errors">
+                                    {% for error in form.id.errors %}
+                                    <li class = "text-danger">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            
+                            {{ form.submit(class = "btn btn-primary", value = "Activate") }}
+                        </form>
+                
+</center>   
+
+
+
+{% endblock content %}
+
+
+

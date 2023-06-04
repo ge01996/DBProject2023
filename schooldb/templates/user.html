@@ -1,0 +1,480 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<center>
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                {% if user|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No users found!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Username</th>
+                                    <th>Date of Birth</th>
+                                    <th>Address</th>
+                                    <th>Zip Code</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in user %}
+                                    <tr>
+                                        <td> {{ user.id }} </td>
+                                        <td> {{ user.first_name }} </td>
+                                        <td> {{ user.last_name }} </td>
+                                        <td> {{ user.username }} </td>
+                                        <td> {{ user.birthdate }} </td>
+                                        <td> {{ user.address }} </td>
+                                        <td> {{ user.zip_code }} </td>
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+           
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="row" id="row">
+    <div class="col-md-12">
+        <div class="card" id="card-container">
+            <div class="card-body" id="card">
+                <h4 class="card-title">3.3.1</h4>
+                <p class="card-text" id="paragraph"><font size="+2">Choose your search criteria to look for books</font><br></p>
+      <center>
+        <form class="form-horizontal" name="student-form" method="POST">
+            <!-- hidden_tag returns the form's security metadata -->
+            {{ form2.hidden_tag() }}
+            <div class="form-group col-sm-3 mb-3">
+                {{ form2.title.label(class = "form-label") }}
+                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                {{ form2.title(class = "form-control", placeholder = "Enter book title", required = False) }}
+                {% if form2.title.errors %}
+                <ul class = "errors">
+                    {% for error in form2.title.errors %}
+                    <li class = "text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="form-group col-sm-3 mb-3">
+                {{ form2.category.label(class = "form-label") }}
+                {{ form2.category(class = "form-control", placeholder = "Enter category name", required = False) }}
+                {% if form2.category.errors %}
+                <ul class = "errors">
+                    {% for error in form2.category.errors %}
+                    <li class = "text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="form-group col-sm-3 mb-3">
+                {{ form2.writer.label(class = "form-label") }}
+                {{ form2.writer(class = "form-control", placeholder = "Enter writer name", required = False) }}
+                {% if form2.writer.errors %}
+                <ul class = "errors">
+                    {% for error in form2.writer.errors %}
+                    <li class = "text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {{ form2.submit(class = "btn btn-primary", value = "Filter") }}
+        </form>
+    </center>
+
+
+            {% if book|length == 0 %}
+                <h1 style="margin-top: 5rem;">No books found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th>Book title</Title></th>
+                            
+                    
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in book %}
+                                <tr>
+                                
+                                    <td> {{ book.title }} </td>
+
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            </div>
+        
+<br><br>
+
+                                    <div class="row" id="row">
+                                        <div class="col-md-12">
+                                            <div class="card" id="card-container">
+                                                <div class="card-body" id="card">
+                                                    <h4 class="card-title">3.3.2</h4>
+                                                    <p class="card-text" id="paragraph"><font size="+2">Here are the books you have borrowed</font><br></p>
+                                        
+            
+                                    
+                                    
+                                    
+                                                {% if book2|length == 0 %}
+                                                    <h1 style="margin-top: 5rem;">No books found!</h1>
+                                                {% else %}
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                    
+                                                                    <th>Book title</Title></th>
+                                                                    <th>Rental_date</Title></th>
+                                                        
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for book2 in book2 %}
+                                                                    <tr>
+                                                                    
+                                                                        <td> {{ book2.title }} </td>
+                                                                        <td> {{ book2.rental_date }} </td>
+                                                                        <td>
+                                                                            
+                                                                        </td>
+                                                                        <td>
+                                                                           
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                                                </div>
+                                            
+                                    <br><br>
+
+                                    <br><br>
+                                </div>
+                                <h2 class="card-title">Borrow a book</h2>
+                                <p><font size="+2">Enter here the title of the book you want to borrow:</font></p>                 
+                                
+                                        <form class="form-horizontal" name="formborrowbook" method="POST">
+                                            <!-- hidden_tag returns the form's security metadata -->
+                                            {{ formborrowbook.hidden_tag() }}
+                                            <div class="form-group col-sm-3 mb-3">
+                                                {{ formborrowbook.title.label(class = "form-label") }}
+                                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                                {{ formborrowbook.title(class = "form-control", placeholder = "Enter book title ", required = False) }}
+                                                {% if formborrowbook.title.errors %}
+                                                <ul class = "errors">
+                                                    {% for error in formborrowbook.title.errors %}
+                                                    <li class = "text-danger">{{ error }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
+                                            
+                                            {{ formborrowbook.submit(class = "btn btn-primary", value = "Borrow") }}
+                                        </form>
+                                    </div>
+                                </div>
+                        <br><br>
+                        <h2 class="card-title">Reserve a book</h2>
+                        <p><font size="+2">If your attempt to borrow the book was not successful,<br>then you need to make a reservation,<br> because there are no available copies at the moment</font></p>                 
+                        
+                                        
+                                <form class="form-horizontal" name="formreservebook" method="POST">
+                                    <!-- hidden_tag returns the form's security metadata -->
+                                    {{ formreservebook.hidden_tag() }}
+                                    <div class="form-group col-sm-3 mb-3">
+                                        {{ formreservebook.title2.label(class = "form-label") }}
+                                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                        {{ formreservebook.title2(class = "form-control", placeholder = "Enter book title ", required = False) }}
+                                        {% if formreservebook.title2.errors %}
+                                        <ul class = "errors">
+                                            {% for error in formreservebook.title2.errors %}
+                                            <li class = "text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    
+                                    {{ formreservebook.submit(class = "btn btn-primary", value = "Reserve") }}
+                                </form>
+                            </div>
+                        </div>
+                <br><br>
+                <div class="row" id="row">
+                    <div class="col-md-12">
+                        <div class="card" id="card-container">
+                            <div class="card-body" id="card">
+                                <h4 class="card-title"></h4>
+                                <p class="card-text" id="paragraph"><font size="+2">Here are your reservations</font><br></p>
+                    
+
+                            {% if res|length == 0 %}
+                                <h1 style="margin-top: 5rem;">No reservations found!</h1>
+                            {% else %}
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                
+                                                <th>Book title</Title></th>
+                                                <th>Reservation date</Title></th>
+                                    
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for res in res %}
+                                                <tr>
+                                                
+                                                    <td> {{ res.title }} </td>
+                                                    <td> {{ res.trdate }} </td>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                       
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+                            </div>
+                        
+                <br><br>
+                <br><br>
+                <h2 class="card-title">Cancel a reservation</h2>
+                <p><font size="+2">Enter the book title and the date of the reservation</font></p>                 
+                <form class="form-horizontal" name="formrev" method="POST">
+                    <!-- hidden_tag returns the form's security metadata -->
+                    {{ formresdelete.hidden_tag() }}
+                    <div class="form-group col-sm-3 mb-3">
+                        {{ formresdelete.title.label(class = "form-label") }}
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        {{ formresdelete.title(class = "form-control", placeholder = "Enter book title ", required = False) }}
+                        {% if formresdelete.title.errors %}
+                        <ul class = "errors">
+                            {% for error in formresdelete.title.errors %}
+                            <li class = "text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    
+                            <div class="form-group col-sm-12 mb-12 ">
+                                {{ formresdelete.date.label(class = "form-label" ) }}
+                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                {{ formresdelete.date(class = "form-control", placeholder = "Enter date ", required = False) }}
+                                {% if formresdelete.date.errors %}
+                                <ul class = "errors">
+                                    {% for error in formresdelete.date.errors %}
+                                    <li class = "text-danger">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                                
+                    {{ formresdelete.submit(class = "btn btn-primary", value = "Cancel") }}
+                </form>
+            </div>
+        </div>
+<br><br>
+                <br><br>
+            </div>
+                <br><br>
+                <h2 class="card-title">Write a review for a book and rate it</h2>
+                <p><font size="+2">Enter the title of the book you want to review,<br> then enter your rating and your review text </font></p>                 
+                <form class="form-horizontal" name="formrev" method="POST">
+                    <!-- hidden_tag returns the form's security metadata -->
+                    {{ formrev.hidden_tag() }}
+                    <div class="form-group col-sm-3 mb-3">
+                        {{ formrev.title.label(class = "form-label") }}
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        {{ formrev.title(class = "form-control", placeholder = "Enter book title ", required = False) }}
+                        {% if formrev.title.errors %}
+                        <ul class = "errors">
+                            {% for error in formrev.title.errors %}
+                            <li class = "text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                        <div class="form-group col-sm-3 mb-3">
+                            {{ formrev.rating.label(class = "form-label") }}
+                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                            {{ formrev.rating(class = "form-control", placeholder = "Enter rating ", required = False) }}
+                            {% if formrev.rating.errors %}
+                            <ul class = "errors">
+                                {% for error in formrev.rating.errors %}
+                                <li class = "text-danger">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                            <div class="form-group col-sm-12 mb-12 ">
+                                {{ formrev.text.label(class = "form-label" ) }}
+                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                {{ formrev.text(class = "form-control",style = "height:200px", placeholder = "Enter text ", required = False) }}
+                                {% if formrev.text.errors %}
+                                <ul class = "errors">
+                                    {% for error in formrev.text.errors %}
+                                    <li class = "text-danger">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                                
+                    {{ formrev.submit(class = "btn btn-primary", value = "Review") }}
+                </form>
+            </div>
+        </div>
+<br><br>
+<br><br>
+    </div>
+</div>
+<div class="row" id="row">
+    <div class="col-md-12">
+        <div class="card" id="card-container">
+            <div class="card-body" id="card">
+        
+        <br><br>
+        <br><br>
+        <h2 class="card-title">View your Reviews</h2>
+        <p><font size="+2">Enter the title of the book of which you want to see your review</font></p>                 
+       
+                     <center>                   
+        <form class="form-horizontal" name="formrevsee" method="POST">
+            <!-- hidden_tag returns the form's security metadata -->
+            {{ formreviewsee.hidden_tag() }}
+            <div class="form-group col-sm-3 mb-3">
+                {{ formreviewsee.title3.label(class = "form-label") }}
+                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                {{ formreviewsee.title3(class = "form-control", placeholder = "Enter book title ", required = False) }}
+                {% if formreviewsee.title3.errors %}
+                <ul class = "errors">
+                    {% for error in formreviewsee.title3.errors %}
+                    <li class = "text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            
+            {{ formreviewsee.submit(class = "btn btn-primary", value = "View") }}
+        </form></center>
+    </div>
+</div>
+</div>
+</div>
+<br><br>
+<br><br>
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title"></h4>
+                        <p class="card-text" id="paragraph"><font size="+2"></font><br></p>
+                      {% if data3|length == 0 %}
+                        <h1 style="margin-top: 5rem;">No review found!</h1>
+                      {% else %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Your review: </Title></th>
+                                    
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        <tr>
+                                        
+                                            <td> {{ data3 }} </td>
+        
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                               
+                                            </td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    </div>
+                
+        <br><br>
+        <br><br>
+        <br><br>
+        <div class="row" id="row">
+            <div class="col-md-12">
+                <div class="card" id="card-container">
+                    <div class="card-body" id="card">
+        <h2 class="card-title">Change your password here</h2>
+<center>
+    <form class="form-horizontal" name="formreturn" method="POST">
+        <!-- hidden_tag returns the form's security metadata -->
+        <div class="form-group col-sm-3 mb-3">
+            {{ formpass.pass1.label(class = "form-label") }}
+            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+            {{ formpass.pass1(class = "form-control", placeholder = "Enter new password", required = False) }}
+            {% if formpass.pass1.errors %}
+            <ul class = "errors">
+                {% for error in formpass.pass1.errors %}
+                <li class = "text-danger">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {{ formpass.submit(class = "btn btn-primary", value = "Confirm") }}
+                                                            </form>
+    </center>
+</center>
+{% endblock content %}
+

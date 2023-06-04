@@ -1,0 +1,18 @@
+<nav class="navbar navbar-light navbar-expand-md" id="nav-bar">
+    <div id="navbar-div" class="container-fluid">
+        <a class="navbar-brand" id="nav-bar-text">School Library Application - {{ pageTitle }}</a>
+        <a id="navbar-items" href="/">
+            <i class="fa fa-home "></i> Home Page
+        </a>
+        <form action="login" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      <form action="logout" method="post">
+        <input class="btn btn-default" type="submit" value="Logout">
+      </form>
+    </div>
+</nav>

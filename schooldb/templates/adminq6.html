@@ -1,0 +1,56 @@
+{% extends "global_layout.html" %}
+{% block content %}
+
+<center>
+  <h1>Admin Services</h1>
+
+
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                {% if category|length == 0 %}
+                <h1 style="margin-top: 5rem;">No category pairs found!</h1>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Category 1</th>
+                                <th>Category 2</th>
+                                <th>Rentals</th>
+                                
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in category %}
+                                <tr>
+                                    <td> {{ category.category_1}} </td>
+                                    <td> {{ category.category_2 }} </td>
+                                    <td> {{ category.rental_num }} </td>
+                                    <td>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+                        <tr><div class="row" id="row">
+                            <div class="col-md-12">
+                                <div class="card" id="card-container">
+                            <td> 1.History </td><br>
+                            <td> 2.Novel</td><br>
+                            <td> 3.Poetry </td><br>
+                            <td> 4.Sci-fi</td><br>
+                            <td> 5.Fantasy</td><br>
+                            <td> 6.Foreign </td><br>
+                            <td> 7.Lecture specific</td><br>
+                            <td> 8.For young kids</td><br>
+                            <td> 9.Romance </td><br>
+                            <td> 10.Mystery </td><br>
+                            <td><br>
+
+
+              </center>
+              {% endblock content %}

@@ -1,0 +1,238 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <center>
+    <div class="container">
+        <div class="card" id="card-container">
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <h3 class="card-title">Enter book data </h3>
+            <form class="form-horizontal" name="book-form" method="POST">
+                <!-- hidden_tag returns the form's security metadata -->
+                {{ form.hidden_tag() }}
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.isbn.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.isbn(class = "form-control", placeholder = "Enter School isbn", required = False) }}
+                    {% if form.isbn.errors %}
+                    <ul class = "errors">
+                        {% for error in form.isbn.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.title.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.title(class = "form-control", placeholder = "Enter title", required = False) }}
+                    {% if form.title.errors %}
+                    <ul class = "errors">
+                        {% for error in form.title.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.publisher.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.publisher(class = "form-control", placeholder = "Enter publisher ", required = False) }}
+                    {% if form.publisher.errors %}
+                    <ul class = "errors">
+                        {% for error in form.publisher.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.summary.label(class = "form-label") }}
+                    {{ form.summary(class = "form-control", placeholder = "Enter summary ", required = False) }}
+                    {% if form.summary.errors %}
+                    <ul class = "errors">
+                        {% for error in form.summary.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.lang.label(class = "form-label") }}
+                    {{ form.lang(class = "form-control", placeholder = "Enter lang", required = False) }}
+                    {% if form.lang.errors %}
+                    <ul class = "errors">
+                        {% for error in form.lang.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.pages.label(class = "form-label") }}
+                    {{ form.pages(class = "form-control", placeholder = "Enter number of pages", required = False) }}
+                    {% if form.pages.errors %}
+                    <ul class = "errors">
+                        {% for error in form.pages.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.school.label(class = "form-label") }}
+                    {{ form.school(class = "form-control", placeholder = "Enter school id", required = False) }}
+                    {% if form.school.errors %}
+                    <ul class = "errors">
+                        {% for error in form.school.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.copies.label(class = "form-label") }}
+                    {{ form.copies(class = "form-control", placeholder = "Enter number of copies", required = False) }}
+                    {% if form.copies.errors %}
+                    <ul class = "errors">
+                        {% for error in form.copies.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit(class = "btn btn-primary btn-submit-custom") }}<br><br>
+            </form>
+    </div>
+    </div>
+</div><br><br>
+<div class="container">
+    <div class="card" id="card-container">
+        <h3 class="card-title">Enter book  ID and keyword </h3>
+        <form class="form-horizontal" name="form1" method="POST">
+            <!-- hidden_tag returns the form's security metadata -->
+            {{ form1.hidden_tag() }}
+            <div class="form-group col-sm-3 mb-3">
+                {{ form1.book.label(class = "form-label") }}
+                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                {{ form1.book(class = "form-control", placeholder = "book ID ", required = False) }}
+                {% if form1.book.errors %}
+                <ul class = "errors">
+                    {% for error in form1.book.errors %}
+                    <li class = "text-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            
+                    <div class="form-group col-sm-12 mb-12 ">
+                        {{ form1.word.label(class = "form-label" ) }}
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        {{ form1.word(class = "form-control", placeholder = "Enter keyword ", required = False) }}
+                        {% if form1.word.errors %}
+                        <ul class = "errors">
+                            {% for error in form1.word.errors %}
+                            <li class = "text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div> 
+                        
+            {{ form1.submit(class = "btn btn-primary", value = "Confirm") }}
+        </form>
+    </div></div>
+    <br><br>
+    <div class="container">
+        <div class="card" id="card-container">
+            <h3 class="card-title">Enter book  ID and writer </h3>
+            <form class="form-horizontal" name="form2" method="POST">
+                <!-- hidden_tag returns the form's security metadata -->
+                {{ form2.hidden_tag() }}
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form2.book.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form2.book(class = "form-control", placeholder = "book ID ", required = False) }}
+                    {% if form2.book.errors %}
+                    <ul class = "errors">
+                        {% for error in form2.book.errors %}
+                        <li class = "text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                
+                        <div class="form-group col-sm-12 mb-12 ">
+                            {{ form2.name.label(class = "form-label" ) }}
+                            <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                            {{ form2.name(class = "form-control", placeholder = "Writer name ", required = False) }}
+                            {% if form2.name.errors %}
+                            <ul class = "errors">
+                                {% for error in form2.name.errors %}
+                                <li class = "text-danger">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div> 
+                            
+                {{ form2.submit(class = "btn btn-primary", value = "Confirm") }}
+            </form>
+        </div>
+        <br><br>
+        <br><br></div><br><br>
+        <div class="container">
+            <div class="card" id="card-container">
+                <h3 class="card-title">Enter book  ID,school ID, and number of copies to add an existing book in another school </h3>
+                <form class="form-horizontal" name="form3" method="POST">
+                    <!-- hidden_tag returns the form's security metadata -->
+                    {{ form3.hidden_tag() }}
+                    <div class="form-group col-sm-3 mb-3">
+                        {{ form3.id.label(class = "form-label") }}
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        {{ form3.id(class = "form-control", placeholder = "Enter book ID here ", required = False) }}
+                        {% if form3.id.errors %}
+                        <ul class = "errors">
+                            {% for error in form3.id.errors %}
+                            <li class = "text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    
+                            <div class="form-group col-sm-12 mb-12 ">
+                                {{ form3.school3.label(class = "form-label" ) }}
+                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                {{ form3.school3(class = "form-control", placeholder = "School ID ", required = False) }}
+                                {% if form3.school3.errors %}
+                                <ul class = "errors">
+                                    {% for error in form3.school3.errors %}
+                                    <li class = "text-danger">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div> 
+
+                            
+                            <div class="form-group col-sm-12 mb-12 ">
+                                {{ form3.copies3.label(class = "form-label" ) }}
+                                <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                                {{ form3.copies3(class = "form-control", placeholder = "Number of copies ", required = False) }}
+                                {% if form3.copies3.errors %}
+                                <ul class = "errors">
+                                    {% for error in form3.copies3.errors %}
+                                    <li class = "text-danger">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div> 
+                                
+                    {{ form3.submit(class = "btn btn-primary", value = "Confirm") }}
+                </form>
+            </div>
+            <br><br>
+
+
+
+</center>
+
+
+
+
+{% endblock content %}
