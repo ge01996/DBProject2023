@@ -24,10 +24,10 @@ CREATE TABLE users (
     birthdate date,
     address varchar(100)not null,
     zip_code char(5)not null,
-    role_id char(1)not null,
+    role_id char(2)not null default '-1',
     curr_rnt int(1),
     PRIMARY KEY (id)  ,
-    FOREIGN KEY (role_id) REFERENCES role(id) on update cascade,
+    
     constraint check (curr_rnt>=0 and curr_rnt<=2)    
 );
 
@@ -162,61 +162,60 @@ CREATE UNIQUE INDEX idx_schooluser ON schooluser (school_id,user_id);
 
 CREATE UNIQUE INDEX idx_schoolbook ON schoolbook (school_id,book_id);
 
-  CREATE TRIGGER book_exit BEFORE UPDATE ON schoolbook
-    FOR EACH ROW 
-    BEGIN
-      IF OLD.curr_copies != 0 THEN
+   delimiter $$
+
+CREATE DEFINER = CURRENT_USER TRIGGER schooldb.users_BEFORE_UPDATE BEFORE UPDATE ON users 
+FOR EACH ROW
+ 
+BEGIN
+    
+   IF role_id > 0 AND OLD.curr_rnt < 1 THEN          
+      SET NEW.curr_rnt = 1;       
+   ELSEIF role_id = 0 AND OLD.curr_rnt < 2 THEN          
+      SET NEW.curr_rnt = OLD.curr_rnt + 1;          
+   ELSE          
+      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Book limit reached';    
+   END IF; 
+END
+
+;
+
+delimiter $$
+
+CREATE DEFINER = CURRENT_USER TRIGGER schooldb.schoolbook_BEFORE_UPDATE BEFORE UPDATE ON schoolbook
+ FOR EACH ROW
+BEGIN
+      IF OLD.curr_copies = 0 THEN
+          SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Not available';
+      ELSE
          SET NEW.curr_copies = OLD.curr_copies - 1;
-      ELSE
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Not available';
-      END IF;
-END ;
-
-    CREATE TRIGGER teacher_restriction BEFORE UPDATE ON reservation
-    FOR EACH ROW 
-    BEGIN
-      IF old.role_id > 0 AND old.curr_rnt = 1 THEN
-         SET new.curr_rnt = 1
-      ELSE
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Book limit reached'
       END IF
-       IF old.role_id = 0 AND old.curr_rnt < 2 THEN
-         SET new.curr_rnt =old.curr_rnt+ 1
-      ELSE
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Book limit reached'
-      END IF
-      
-END:   
+      ;
+END;       
+    
+delimiter $$
+
+CREATE DEFINER = CURRENT_USER TRIGGER schooldb.reservation_BEFORE_INSERT BEFORE INSERT ON reservation 
+FOR EACH ROW
+BEGIN
+
+ IF  NEW.status = -1 THEN
+         INSERT INTO users (curr_rnt) values ( curr_rnt - 1);
+    ELSEIF  NEW.status = 1 THEN
+        INSERT INTO users (curr_rnt) values ( curr_rnt + 1);    
+    END IF     
+         ;
+END;
 
 
-    CREATE TRIGGER student_restriction BEFORE UPDATE ON users
-    FOR EACH ROW 
-    BEGIN
-      IF role_id = 0 AND curr_rnt < 2 THEN
-         SET NEW.curr_rnt = OLD.curr_rnt + 1
-      ELSE
-         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Book limit reached'
-      END IF
-      
-END:   
+ delimiter $$
 
-    CREATE TRIGGER book_rnt_return BEFORE UPDATE ON rental
-    FOR EACH ROW 
-    BEGIN
-      IF  NEW.status = 2 THEN
-         SET NEW.curr_copies = OLD.curr_copies + 1
-         SET NEW.users.curr_rnt = OLD.users.curr_rnt - 1
-         SET NEW.schoolbook.curr_copies = OLD.schoolbook.curr_copies + 1
-      END IF
-         
-END:      
-
-    CREATE TRIGGER book_rev_return BEFORE INSERT ON reservation
-    FOR EACH ROW 
-    BEGIN
-	IF  NEW.status = 2 THEN
-         SET NEW.curr_copies = OLD.curr_copies + 1
-         SET NEW.users.curr_rnt = OLD.users.curr_rnt - 1
-         SET NEW.schoolbook.curr_copies = OLD.schoolbook.curr_copies + 1
-END:      
-
+CREATE DEFINER = CURRENT_USER TRIGGER schooldb.rental_BEFORE_UPDATE BEFORE UPDATE ON rental 
+FOR EACH ROW
+BEGIN
+ IF  NEW.status = 2 THEN
+        INSERT INTO schoolbook (curr_copies) values ( curr_copies + 1);
+        INSERT INTO users (curr_rnt) values ( curr_rnt - 1);
+     END IF
+         ;
+END ;    
